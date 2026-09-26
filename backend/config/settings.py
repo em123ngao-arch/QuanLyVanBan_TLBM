@@ -67,13 +67,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-try:
-    import corsheaders  # noqa: F401
-    INSTALLED_APPS.append("corsheaders")
-    MIDDLEWARE.insert(2, "corsheaders.middleware.CorsMiddleware")
-except ImportError:
-    pass
-
 ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
