@@ -1484,3 +1484,110 @@ class MeetingBookingConcurrencyTestCase(TransactionTestCase):
             trang_thai=MeetingBooking.Status.CONFIRMED,
         ).count()
         self.assertEqual(created_count, 1)
+
+
+class MeetingSelectorsTestCase(TestCase):
+    """Kiểm thử selector công khai phục vụ Dashboard (Nhóm 1)."""
+
+    def setUp(self):
+        from organizations.models import DonVi, KhoiKhuVuc
+        from accounts.models import Position
+        self.donvi = DonVi.objects.first()
+        if not self.donvi:
+            khoi, _ = KhoiKhuVuc.objects.get_or_create(ten="KHỐI KIỂM THỬ")
+            latest = DonVi.objects.order_by("-stt_uu_tien").first()
+            next_stt = (latest.stt_uu_tien + 1) if latest else 1
+            self.donvi = DonVi.objects.create(ten="Ban Công nghệ", khoi=khoi, stt_uu_tien=next_stt)
+
+        self.position = Position.objects.first()
+        if not self.position:
+            self.position = Position.objects.create(name="Chuyên viên", display_order=Position.get_next_display_order())
+
+        self.user = User.objects.create_user(
+            username="test_selector_user",
+            ho_ten="Nguyễn Văn Selector",
+            chuc_vu=self.position,
+            don_vi=self.donvi,
+        )
+        self.target_date = date(2026, 10, 22)
+
+    def test_trang_thai_phong_hop_hom_nay(self):
+        from meetings.selectors import trang_thai_phong_hop_hom_nay
+
+        r_in_progress = MeetingRoom.objects.create(name="Phòng A1 Test", capacity=10)
+        r_upcoming = MeetingRoom.objects.create(name="Phòng B2 Test", capacity=15)
+        r_available = MeetingRoom.objects.create(name="Phòng C3 Test", capacity=20)
+        r_maintenance = MeetingRoom.objects.create(
+            name="Phòng D4 Test", capacity=5, trang_thai=MeetingRoom.Status.MAINTENANCE
+        )
+
+        MeetingBooking.objects.create(
+            room=r_in_progress,
+            organizer=self.user,
+            department=self.donvi,
+            title="Cuộc họp đang diễn ra",
+            date=self.target_date,
+            start_time=time(9, 0),
+            end_time=time(11, 0),
+            trang_thai=MeetingBooking.Status.CONFIRMED,
+        )
+        MeetingBooking.objects.create(
+            room=r_upcoming,
+            organizer=self.user,
+            department=self.donvi,
+            title="Cuộc họp sắp diễn ra",
+            date=self.target_date,
+            start_time=time(14, 0),
+            end_time=time(16, 0),
+            trang_thai=MeetingBooking.Status.CONFIRMED,
+        )
+
+        # Đánh giá tại thời điểm 10:00 sáng
+        statuses = {
+            s["room_name"]: s
+            for s in trang_thai_phong_hop_hom_nay(ngay=self.target_date, thoi_diem=time(10, 0))
+        }
+
+        self.assertEqual(statuses["Phòng A1 Test"]["status"], "IN_PROGRESS")
+        self.assertEqual(statuses["Phòng A1 Test"]["status_label"], "Đang họp")
+
+        self.assertEqual(statuses["Phòng B2 Test"]["status"], "UPCOMING")
+        self.assertEqual(statuses["Phòng B2 Test"]["status_label"], "Sắp diễn ra")
+
+        self.assertEqual(statuses["Phòng C3 Test"]["status"], "AVAILABLE")
+        self.assertEqual(statuses["Phòng C3 Test"]["status_label"], "Sẵn sàng")
+
+        self.assertEqual(statuses["Phòng D4 Test"]["status"], "MAINTENANCE")
+        self.assertEqual(statuses["Phòng D4 Test"]["status_label"], "Bảo trì")
+
+    def test_lich_hop_dashboard_hom_nay_contract(self):
+        from meetings.selectors import lich_hop_dashboard_hom_nay
+
+        room = MeetingRoom.objects.create(name="Phòng Họp Hợp Đồng", capacity=12)
+        MeetingBooking.objects.create(
+            room=room,
+            organizer=self.user,
+            department=self.donvi,
+            title="Giao ban sáng",
+            date=self.target_date,
+            start_time=time(9, 30),
+            end_time=time(11, 0),
+            attendees_count=6,
+            trang_thai=MeetingBooking.Status.CONFIRMED,
+        )
+
+        items = lich_hop_dashboard_hom_nay(ngay=self.target_date, thoi_diem=time(10, 0))
+        matching = [item for item in items if item["room_name"] == "Phòng Họp Hợp Đồng"]
+        self.assertEqual(len(matching), 1)
+        item = matching[0]
+
+        # Kiểm tra hợp đồng trường với Frontend DashboardMeetingItem
+        self.assertEqual(item["room_name"], "Phòng Họp Hợp Đồng")
+        self.assertEqual(item["roomName"], "Phòng Họp Hợp Đồng")
+        self.assertEqual(item["meeting_title"], "Giao ban sáng")
+        self.assertEqual(item["start_time"], "09:30")
+        self.assertEqual(item["end_time"], "11:00")
+        self.assertEqual(item["time"], "09:30 - 11:00")
+        self.assertEqual(item["status"], "Đang họp")
+        self.assertEqual(item["organizer"], f"{self.user.ho_ten} ({self.donvi.ten})")
+

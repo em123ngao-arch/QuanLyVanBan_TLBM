@@ -1,0 +1,260 @@
+[
+{
+  "model": "meetings.meetingroom",
+  "pk": 1,
+  "fields": {
+    "name": "Phòng Hội Thảo A",
+    "location": "Tầng 1",
+    "capacity": 20,
+    "amenities": "",
+    "is_public": true,
+    "trang_thai": "AVAILABLE",
+    "ghi_chu": "",
+    "created_at": "2026-10-22T02:16:33.369Z",
+    "updated_at": "2026-10-22T02:16:33.369Z"
+  }
+},
+{
+  "model": "meetings.meetingroom",
+  "pk": 2,
+  "fields": {
+    "name": "Phòng Họp Ban Giám Đốc",
+    "location": "Tầng 2 Phòng B101",
+    "capacity": 15,
+    "amenities": "",
+    "is_public": true,
+    "trang_thai": "AVAILABLE",
+    "ghi_chu": "",
+    "created_at": "2026-10-22T02:16:33.374Z",
+    "updated_at": "2026-10-22T02:16:33.374Z"
+  }
+},
+{
+  "model": "meetings.meetingroom",
+  "pk": 3,
+  "fields": {
+    "name": "Phòng Kỹ Thuật",
+    "location": "Phòng B101",
+    "capacity": 10,
+    "amenities": "",
+    "is_public": true,
+    "trang_thai": "AVAILABLE",
+    "ghi_chu": "",
+    "created_at": "2026-10-22T02:16:33.376Z",
+    "updated_at": "2026-10-22T02:16:33.376Z"
+  }
+},
+{
+  "model": "meetings.meetingroom",
+  "pk": 4,
+  "fields": {
+    "name": "Phòng Kho B1",
+    "location": "Tầng hầm B1",
+    "capacity": 8,
+    "amenities": "",
+    "is_public": true,
+    "trang_thai": "AVAILABLE",
+    "ghi_chu": "",
+    "created_at": "2026-10-22T02:16:33.378Z",
+    "updated_at": "2026-10-22T02:16:33.378Z"
+  }
+},
+{
+  "model": "meetings.meetingroom",
+  "pk": 5,
+  "fields": {
+    "name": "Phòng Đa Năng",
+    "location": "Tầng lửng",
+    "capacity": 12,
+    "amenities": "",
+    "is_public": true,
+    "trang_thai": "AVAILABLE",
+    "ghi_chu": "",
+    "created_at": "2026-10-22T02:16:33.381Z",
+    "updated_at": "2026-10-22T02:16:33.381Z"
+  }
+},
+{
+  "model": "meetings.meetingroom",
+  "pk": 6,
+  "fields": {
+    "name": "Phòng họp A1",
+    "location": "Tầng 1 - Khu Hành chính",
+    "capacity": 20,
+    "amenities": "Máy chiếu 4K, Âm thanh hội nghị, Bảng tương tác, Điều hòa",
+    "is_public": true,
+    "trang_thai": "AVAILABLE",
+    "ghi_chu": "Phòng họp tiêu chuẩn giao ban lãnh đạo",
+    "created_at": "2026-10-22T02:53:19.224Z",
+    "updated_at": "2026-10-22T02:53:26.070Z"
+  }
+},
+{
+  "model": "meetings.meetingroom",
+  "pk": 7,
+  "fields": {
+    "name": "Phòng trực tuyến B2",
+    "location": "Tầng 2 - Khu Kỹ thuật",
+    "capacity": 15,
+    "amenities": "Polycom truyền hình số, Camera 360, Mic đa hướng, TV 75 inch",
+    "is_public": true,
+    "trang_thai": "AVAILABLE",
+    "ghi_chu": "Phòng chuyên dụng họp trực tuyến đa điểm",
+    "created_at": "2026-10-22T02:53:19.229Z",
+    "updated_at": "2026-10-22T02:53:26.070Z"
+  }
+},
+{
+  "model": "meetings.meetingroom",
+  "pk": 8,
+  "fields": {
+    "name": "Phòng Hội trường A",
+    "location": "Tầng 1 - Trung tâm hội nghị",
+    "capacity": 100,
+    "amenities": "Sân khấu lớn, Âm thanh vòm, 2 màn chiếu 300 inch, Bục phát biểu, Livestream",
+    "is_public": true,
+    "trang_thai": "AVAILABLE",
+    "ghi_chu": "Hội trường tổ chức đại hội, tổng kết và sự kiện lớn",
+    "created_at": "2026-10-22T02:53:19.232Z",
+    "updated_at": "2026-10-22T02:53:26.070Z"
+  }
+},
+{
+  "model": "meetings.meetingbooking",
+  "pk": 3,
+  "fields": {
+    "room": 6,
+    "organizer": 3,
+    "department": 21,
+    "title": "Họp giao ban Lãnh đạo các Ban chuyên môn",
+    "date": "2026-10-22",
+    "start_time": "09:23:00",
+    "end_time": "10:53:00",
+    "attendees_count": 12,
+    "purpose": "Đánh giá tiến độ triển khai dự án quý và nhiệm vụ trọng tâm tuần.",
+    "trang_thai": "CONFIRMED",
+    "created_at": "2026-10-22T02:53:26.105Z"
+  }
+},
+{
+  "model": "meetings.meetingbooking",
+  "pk": 4,
+  "fields": {
+    "room": 7,
+    "organizer": 2,
+    "department": 24,
+    "title": "Hội nghị trực tuyến thẩm định hồ sơ kỹ thuật số",
+    "date": "2026-10-22",
+    "start_time": "11:23:00",
+    "end_time": "12:53:00",
+    "attendees_count": 8,
+    "purpose": "Thống nhất kiến trúc tích hợp hệ thống số hóa văn bản và hồ sơ.",
+    "trang_thai": "CONFIRMED",
+    "created_at": "2026-10-22T02:53:26.108Z"
+  }
+},
+{
+  "model": "accounts.employee",
+  "pk": 1,
+  "fields": {
+    "last_login": null,
+    "ho_ten": "Quản trị hệ thống",
+    "ngay_sinh": "1990-01-01",
+    "chuc_vu": 1,
+    "chuc_danh": null,
+    "email": "admin@baolong.vn",
+    "sdt": null,
+    "don_vi": 24,
+    "username": "admin",
+    "password": "pbkdf2_sha256$1000000$qdNje5D7AKhd4HrvVKfAo0$HORWdJIjh+E/dXn2SyXfNVCK3Ayr4Hg1vjnb4aeecpc=",
+    "is_active": true,
+    "is_staff": true,
+    "is_superuser": true,
+    "is_public": true,
+    "trang_thai": "LAM_VIEC",
+    "ghi_chu": null,
+    "created_at": "2026-10-22T01:50:03.974Z",
+    "updated_at": "2026-10-22T02:16:19.473Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.employee",
+  "pk": 2,
+  "fields": {
+    "last_login": null,
+    "ho_ten": "Nguyễn Văn An",
+    "ngay_sinh": "1993-10-22",
+    "chuc_vu": 4,
+    "chuc_danh": "",
+    "email": "nguyen_van_an@baolong.vn",
+    "sdt": "0908111222",
+    "don_vi": 24,
+    "username": "nguyen_van_an",
+    "password": "pbkdf2_sha256$1000000$fNN8rKvBKbn8nn4LNijlB3$uLODMMtO2/skG0C3xc/5IHVEA2+NQexfboEPuB7TjIs=",
+    "is_active": true,
+    "is_staff": false,
+    "is_superuser": false,
+    "is_public": true,
+    "trang_thai": "LAM_VIEC",
+    "ghi_chu": "",
+    "created_at": "2026-10-22T02:53:19.561Z",
+    "updated_at": "2026-10-22T02:53:26.070Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.employee",
+  "pk": 3,
+  "fields": {
+    "last_login": null,
+    "ho_ten": "Trần Thị Mai",
+    "ngay_sinh": "1988-10-22",
+    "chuc_vu": 2,
+    "chuc_danh": "",
+    "email": "tran_thi_mai@baolong.vn",
+    "sdt": "0908333444",
+    "don_vi": 21,
+    "username": "tran_thi_mai",
+    "password": "pbkdf2_sha256$1000000$eTEuffRpyTcnYUAVGsC4Rg$VXiHIUjSLP3DIjwB3GLSeKoqajy5kyvnGjb4UL9v1RQ=",
+    "is_active": true,
+    "is_staff": false,
+    "is_superuser": false,
+    "is_public": true,
+    "trang_thai": "LAM_VIEC",
+    "ghi_chu": "",
+    "created_at": "2026-10-22T02:53:19.888Z",
+    "updated_at": "2026-10-22T02:53:26.070Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.employee",
+  "pk": 4,
+  "fields": {
+    "last_login": null,
+    "ho_ten": "Lê Hoàng Nam",
+    "ngay_sinh": "1995-10-23",
+    "chuc_vu": 3,
+    "chuc_danh": "",
+    "email": "le_hoang_nam@baolong.vn",
+    "sdt": "0908555666",
+    "don_vi": 28,
+    "username": "le_hoang_nam",
+    "password": "pbkdf2_sha256$1000000$Buwhgxv9CWx1u4PpXiUZdx$hE6Larpm8tYAAcd1oFehsBrMXZeTuINXd9BO4fnVxZU=",
+    "is_active": true,
+    "is_staff": false,
+    "is_superuser": false,
+    "is_public": true,
+    "trang_thai": "LAM_VIEC",
+    "ghi_chu": "",
+    "created_at": "2026-10-22T02:53:20.208Z",
+    "updated_at": "2026-10-22T02:53:26.070Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
